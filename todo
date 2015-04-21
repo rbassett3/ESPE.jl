@@ -1,0 +1,9 @@
+
+1) Make genreg return a row vector. (I think). Just be consistent.
+2) Write some documentation on the regression estimation part.
+
+
+Concerns:
+The essential and the mesh component of the estimation?
+
+How to define the trend when mesh has outrefined points?
