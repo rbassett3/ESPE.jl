@@ -1,9 +1,9 @@
-@debug function evalreg(reg, X, cut, t_exp, naughty_exp)
+@debug function evalreg(reg_array, Y, cut, t_exp, naughty_exp)
 
-A=zeros(size(X,1))
+A=zeros(size(Y,1))
 
-for k = 1:size(X,1)	
-	A[k] = multipolyval(reg[findseg(X[k,:], cut), :]', X[k,:], t_exp, naughty_exp)[1]
+for k = 1:size(Y,1)	
+	A[k] = multipolyval(reg_array[findseg(Y[k,:], cut), :]', Y[k,:], t_exp, naughty_exp)[1]
 end
 return A
 end

@@ -35,7 +35,7 @@ end
 #m is the degree of the other components. Mirrors the construction
 #in genreg.jl
 
-function multipolyval(a,x,n,m)
+@debug function multipolyval(a,x,n,m)
 k=size(x,1)
 l=size(x,2)
 local X
@@ -53,6 +53,7 @@ for i=0:n, j= 0:m^w-1
                         X=hcat(X,x[:,1].^i.*t)
                 end
 end
+@bp
 return X*a
 end
 

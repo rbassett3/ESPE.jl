@@ -1,8 +1,6 @@
 #generate a least-squares regression surface. Independent data is time,
 #temperature, and dew point
 
-#Next: break up the domain of the other variables
-
 using PyPlot
 using Convex
 using SCS
@@ -31,7 +29,7 @@ scatter(Data[:,1], Data[:,4], alpha=.5, label="observed")
 hold(true)
 
 #predicted data
-pdat=evalreg(reg, Data[:,1:w+1], cut, t_exp, naughty_exp)
+pdat=reg(Data[:,1:size(Data,2)-1])
 
 #plot the predicted data via the regression
 scatter(Data[:,1], pdat, alpha=.5, c="r",label="predicted")
