@@ -29,6 +29,7 @@ scatter(Data[:,1], Data[:,4], alpha=.5, label="observed")
 hold(true)
 
 #predicted data
+@bp
 pdat=reg(Data[:,1:size(Data,2)-1])
 
 #plot the predicted data via the regression
