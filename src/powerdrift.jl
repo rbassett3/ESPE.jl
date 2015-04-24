@@ -14,6 +14,8 @@ include("polyfun.jl")
 include("genreg.jl")
 include("evalreg.jl")
 
+@debug begin
+
 #load Data file first
 Data=readcsv("data/refinement.csv",skipstart=1)
 
@@ -22,6 +24,7 @@ naughty_exp=2
 
 num_part = 2 #The number of subintervals for non-time explanatory variables
 
+#epi_trend returns a function, which is nice 
 reg=epi_trend(Data, t_exp, naughty_exp, num_part)
 
 #plot the real data
@@ -29,7 +32,7 @@ scatter(Data[:,1], Data[:,4], alpha=.5, label="observed")
 hold(true)
 
 #predicted data
-@bp
+#@bp
 pdat=reg(Data[:,1:size(Data,2)-1])
 
 #plot the predicted data via the regression
@@ -50,8 +53,9 @@ dew=multipolyval(genreg(Data[:,1], Data[:,3],3,2),q,3,2)
 
 
 X=hcat(q,temp,dew)
-plot(q,evalreg(reg, X, cut, t_exp, naughty_exp), c="g", label= "Typical Day's Load") 
+plot(q, reg(X), c="g", label= "Typical Day's Load") 
 legend(loc="upper left", fancybox="true")
 
 hold(false)
 
+end

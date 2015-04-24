@@ -56,9 +56,9 @@ end
 @debug function epi_trend(Data, t_exp, naughty_exp, num_part)
 
 (reg_array, cut) = reg_info(Data, t_exp, naughty_exp, num_part) 
-@bp
+#@bp
 	function reg(new_Var)
-		return evalreg(reg_array, new_Var[:,1:size(new_Var,2)-1], cut, t_exp, naughty_exp)
+		return evalreg(reg_array, new_Var[:,1:size(new_Var,2)], cut, t_exp, naughty_exp)
 	end
 return reg
 end

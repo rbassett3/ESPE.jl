@@ -2,7 +2,8 @@
 
 A=zeros(size(Y,1))
 
-for k = 1:size(Y,1)	
+for k = 1:size(Y,1)
+	#@bp	
 	A[k] = multipolyval(reg_array[findseg(Y[k,:], cut), :]', Y[k,:], t_exp, naughty_exp)[1]
 end
 return A
