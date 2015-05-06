@@ -1,9 +1,18 @@
+For the density estimation
+
+
+For the Regression part
 
 1) Make genreg return a row vector. (I think). Just be consistent.
-2) Write some documentation on the regression estimation part.
 
+2) epi_trend should be have default values for t_exp, naughty_exp, and 
+num_part so that a user can just can just call epi_trend(Data)
+
+3) How to define when partition has outrefined data? 
 
 Concerns:
-The essential and the mesh component of the estimation?
+The essential and the mesh component of the estimation? (from the 
+epi-spline paper)
 
-How to define the trend when mesh has outrefined points?
+
+

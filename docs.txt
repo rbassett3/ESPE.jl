@@ -1,0 +1,41 @@
+
+Installation:
+Run include("setup.jl") to install the necessary packages
+
+How to use the software:
+
+Generating a trend:
+Data should be formatted in an array with the following specs:
+	1) Rows are observed data. Columns are organized as follows:
+		a) The first column is the "time" index
+		b) The last column is the "dependent" variable, 
+		   i.e. the variable that we want to predict.
+		c) The columns in-between are non-time predictive variables
+		   
+	Here is an example: 
+	We want to constuct a stochastic process that estimates the energy
+	consumption for some region. We have some observed data, which 
+	we have organized into an array Data, so that
+	1) The first column is the hour of the day
+	2) The second column is the temperature at that hour
+	3) The third column is the humidity at that hour
+	4) The fourth column is the observed energy consumption at that hour
+
+We will use the epi_trend function from the ESPE codebase to generate a 
+regression surface which uses the time of the day (in hours), temperature,
+and humidity, to predict the energy consumption at that hour.
+
+epi-trend returns a function, so the syntax is as follows
+reg=epi_trend(Data, t_exp, naughty_exp, num_part)
+where
+	1) Data is our array
+	2) t_exp is the highest exponent in the t variable in the regression
+	   surface
+	3) naughty_exp (i.e. Not t exponent) is the highest exponent in the 
+	   other predictive variables (from our example, that is the temp
+	   and humidity
+	4) num_part is the number of partitions of the non-time explanatory
+	   variables.
+
+Then, the predictions given by our regression for our data is
+	reg(Data[:, 1:size(Data,2)-1]) 
