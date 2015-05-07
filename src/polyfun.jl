@@ -35,7 +35,7 @@ end
 #m is the degree of the other components. Mirrors the construction
 #in genreg.jl
 
-@debug function multipolyval(a,x,n,m)
+function multipolyval(a,x,n,m)
 k=size(x,1)
 l=size(x,2)
 local X

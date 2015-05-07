@@ -1,16 +1,18 @@
-include("gendens.jl")
-
 using PyPlot
+using Convex
+
+include("gendens.jl")
 
 #Here's the sample we work with initially, a column array consisting of
 #20 samples from a N(0,1) distribution
 n=20 #Number of elements in our sample
 d=3 #degree of our epi-spline (note that means the coefficient vector
         #is of size 4)
+num_part=2 #number of elements in our partition
 
 S = randn(n,1)
 
-dens=gendens(S,d)
+dens=gendens(S,d, num_part)
 
 #Now how does it look?
 clf()
