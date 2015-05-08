@@ -54,20 +54,42 @@ problem=maximize(sum(piece_poly(a, cut_points, S)))
 
 
 #the integrates to one constraint
-#Eventually introduce soft constraints
-riemsumm = cut_points[1]-bounds[1])*(1/100)*sum(exp(poly(a[:,1],x[find(i->bounds[1] <= x[i] <= cut_points[1])])))
-# a for loop summing the rest of the integral
+riemsumm = (cut_points[1]-bounds[1])*(1/100)*sum(exp(poly(a[:,1],x[find(w->bounds[1] <= w <= cut_points[1], x)])))
 
-problem.constraints += [(bounds[2]-bounds[1])*(1/100)*sum(exp(piece_poly(a,cut_points,x))) <=1]
+# a for loop summing the rest of the integral
+for j=1:size(cut_points,1)-1
+	riemsumm = riemsumm + (cut_points[j+1]-cut_points[j])*(1/100)*sum(exp(poly(a[:,j+1],x[find(w -> cut_points[j] <= w <= cut_points[j+1], x)])))
+end
+
+problem.constraints += [riemsumm <=1]
+
+#Some curvature constraints
+problem.constraints += [a <= 25*ones(size(a)), -25*ones(size(a)) <= a]
 
 solve!(problem, SCSSolver(max_iters=100000))
 
-@bp
-
 function dens(var)
-	return exp(piece_poly(a.value, cut_points, var))
+Q=zeros(size(var,1),1)
+	for j=1:size(var,1)
+	t=false
+	if var[j]<=bounds[1]
+		Q[j]= exp(poly(a.value[:,1], var[j]))
+		t=true
+	else
+	for i=1:size(cut_points,1)
+		if var[j] <= cut_points[i]
+		Q[j]= exp(poly(a.value[:,i], var[j]))
+		t=true
+		break
+		end
 	end
-
+	if t==false
+		Q[j]= exp(poly(a.value[:,size(cut_points,1)], var[j]))
+	end
+	end
+end
+return Q
+end
 return dens
  
 end
