@@ -66,7 +66,7 @@ problem.constraints += [riemsumm <=1]
 #Some curvature constraints
 problem.constraints += [a <= 25*ones(size(a)), -25*ones(size(a)) <= a]
 
-solve!(problem, SCSSolver(max_iters=100000))
+solve!(problem, SCSSolver(max_iters=1000000))
 
 function dens(var)
 Q=zeros(size(var,1),1)

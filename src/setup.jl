@@ -4,4 +4,4 @@ Pkg.add("Debug")
 Pkg.add("GLPK")
 Pkg.add("GLPKMathProgInterface")
 Pkg.add("SCS")
-
+Pkg.add("Distributions")
